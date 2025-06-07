@@ -1,6 +1,6 @@
 """Utility to generate ECharts option objects."""
 
-from typing import Any, Dict, Sequence
+from typing import Any, Dict, Iterable, Mapping
 
 
 def generate_option(chart_type: str, data: Any) -> Dict[str, Any]:
@@ -11,10 +11,11 @@ def generate_option(chart_type: str, data: Any) -> Dict[str, Any]:
     chart_type:
         Type of the chart: ``"line"``, ``"pie"`` or ``"bar"``.
     data:
-        Data for the chart. For ``line`` and ``bar`` charts, ``data`` should be
-        a mapping with ``x`` and ``y`` sequences and an optional ``name`` for
-        the series. For ``pie`` charts, ``data`` should be a sequence of
-        dictionaries with ``"value"`` and ``"name"`` keys.
+        Data for the chart. ``data`` should be a mapping containing ``labels``
+        and ``values`` sequences as well as an optional ``name``. ``labels``
+        correspond to category names (used for the x-axis of line and bar
+        charts or as slice names for pie charts) while ``values`` provide the
+        numeric values.
 
     Returns
     -------
@@ -28,44 +29,46 @@ def generate_option(chart_type: str, data: Any) -> Dict[str, Any]:
     """
 
     chart_type = chart_type.lower()
+    if not isinstance(data, Mapping) or "labels" not in data or "values" not in data:
+        raise ValueError("data must contain 'labels' and 'values'")
+
+    labels = list(data["labels"])
+    values = list(data["values"])
+    series_name = str(data.get("name", ""))
+
     if chart_type == "line":
-        if not isinstance(data, dict) or "x" not in data or "y" not in data:
-            raise ValueError("line chart data must be a dict with 'x' and 'y'")
-        series_name = data.get("name", "")
         return {
-            "xAxis": {"type": "category", "data": list(data["x"])},
+            "xAxis": {"type": "category", "data": labels},
             "yAxis": {"type": "value"},
             "series": [
                 {
                     "type": "line",
                     "name": series_name,
-                    "data": list(data["y"]),
+                    "data": values,
                 }
             ],
         }
     elif chart_type == "bar":
-        if not isinstance(data, dict) or "x" not in data or "y" not in data:
-            raise ValueError("bar chart data must be a dict with 'x' and 'y'")
-        series_name = data.get("name", "")
         return {
-            "xAxis": {"type": "category", "data": list(data["x"])},
+            "xAxis": {"type": "category", "data": labels},
             "yAxis": {"type": "value"},
             "series": [
                 {
                     "type": "bar",
                     "name": series_name,
-                    "data": list(data["y"]),
+                    "data": values,
                 }
             ],
         }
     elif chart_type == "pie":
-        if not isinstance(data, Sequence):
-            raise ValueError("pie chart data must be a sequence of dicts")
+        pie_data = [
+            {"name": label, "value": value} for label, value in zip(labels, values)
+        ]
         return {
             "series": [
                 {
                     "type": "pie",
-                    "data": list(data),
+                    "data": pie_data,
                 }
             ]
         }
