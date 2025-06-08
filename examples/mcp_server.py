@@ -1,4 +1,4 @@
-from echarts import generate_option
+from easy_ask import generate_option
 from mcp.server.fastmcp.server import FastMCP
 import uvicorn
 

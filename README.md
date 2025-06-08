@@ -22,10 +22,10 @@ This project requires **Python 3.12** or newer, as specified in `pyproject.toml`
 
 ## Running the demo
 
-To see the package in action, run the included demonstration script:
+To see the package in action, run the demonstration module:
 
 ```bash
-python main.py
+python -m easy_ask
 ```
 
-This will execute a simple example shipped with the repository.
+Example scripts are also available in the `examples/` directory.
