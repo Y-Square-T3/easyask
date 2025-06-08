@@ -1,5 +1,5 @@
 from pprint import pprint
-from echarts import generate_option
+from easy_ask import generate_option
 
 def main() -> None:
     """Demonstrate generation of ECharts option objects."""
