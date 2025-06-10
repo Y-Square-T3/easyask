@@ -8,7 +8,7 @@ easy-ask is a minimal demonstration package intended to show how chart options c
 ## Quick start
 
 ```python
-from easy_ask import generate_option
+from easyask import generate_option
 
 # Build an option for a bar chart
 option = generate_option(
@@ -28,7 +28,7 @@ This project requires **Python 3.12** or newer, as specified in `pyproject.toml`
 To see the package in action, run the demonstration module:
 
 ```bash
-python -m easy_ask
+python -m easyask
 ```
 
 Example scripts are also available in the `examples/` directory.

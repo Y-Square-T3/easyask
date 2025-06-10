@@ -1,4 +1,4 @@
-from easy_ask import generate_option
+from easyask import generate_option
 from mcp.server.fastmcp.server import FastMCP
 import uvicorn
 

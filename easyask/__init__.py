@@ -1,4 +1,4 @@
-"""easy_ask package."""
+"""easyask package."""
 
 from .echarts import generate_option
 

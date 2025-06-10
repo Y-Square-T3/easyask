@@ -10,4 +10,4 @@ dependencies = [
 ]
 
 [tool.setuptools.packages.find]
-where = ["easy_ask"]
+where = ["easyask"]
