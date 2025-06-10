@@ -27,10 +27,6 @@ jobs:
         run: |
           uv sync
 
-      - name: Activate virtual environment
-        run: |
-          source .venv/bin/activate
-
       - name: Run tests
         run: |
-          PYTHONPATH=. pytest
+          PYTHONPATH=. uv run pytest
