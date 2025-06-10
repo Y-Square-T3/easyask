@@ -1,5 +1,5 @@
 [![CI](https://github.com/Y-Square-T3/easyask/actions/workflows/ci.yml/badge.svg)](https://github.com/Y-Square-T3/easyask/actions/workflows/ci.yml)
-[![Publish Docker Hub](https://github.com/Y-Square-T3/easyask/actions/workflows/publish-image.yml/badge.svg)](https://hub.docker.com/repository/docker/sheltonsuen/easy-ask/general)
+[![Publish Docker Hub](https://github.com/Y-Square-T3/easyask/actions/workflows/publish-image.yml/badge.svg)](https://hub.docker.com/repository/docker/sheltonsuen/easyask/general)
 
 # easy-ask
 
