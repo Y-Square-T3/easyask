@@ -1,3 +1,5 @@
+[![CI](https://github.com/Y-Square-T3/easy-ask/actions/workflows/ci.yml/badge.svg)](https://github.com/Y-Square-T3/easy-ask/actions/workflows/ci.yml)
+
 # easy-ask
 
 easy-ask is a minimal demonstration package intended to show how chart options can be generated programmatically. The library exposes a function called `generate_option` which accepts a chart type and data description and returns a configuration dictionary.
