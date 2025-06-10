@@ -6,6 +6,4 @@ COPY . .
 
 RUN uv lock && uv sync
 
-EXPOSE 8080
-
-CMD ["uv", "run", "server.py"]
+CMD ["uv", "run", "main.py"]
