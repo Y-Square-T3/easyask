@@ -1,5 +1,5 @@
 [project]
-name = "easy-ask"
+name = "easyask"
 version = "0.1.0"
 description = "Generate ECharts option dictionaries"
 readme = "README.md"
