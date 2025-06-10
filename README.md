@@ -1,9 +1,11 @@
-[![CI](https://github.com/Y-Square-T3/easy-ask/actions/workflows/ci.yml/badge.svg)](https://github.com/Y-Square-T3/easy-ask/actions/workflows/ci.yml)
-[![Publish Docker image](https://github.com/Y-Square-T3/easy-ask/actions/workflows/publish-image.yml/badge.svg)](https://github.com/Y-Square-T3/easy-ask/actions/workflows/publish-image.yml)
+[![CI](https://github.com/Y-Square-T3/easyask/actions/workflows/ci.yml/badge.svg)](https://github.com/Y-Square-T3/easyask/actions/workflows/ci.yml)
+[![Publish Docker Hub](https://github.com/Y-Square-T3/easyask/actions/workflows/publish-image.yml/badge.svg)](https://github.com/Y-Square-T3/easyask/actions/workflows/publish-image.yml)
 
 # easy-ask
 
-easy-ask is a minimal demonstration package intended to show how chart options can be generated programmatically. The library exposes a function called `generate_option` which accepts a chart type and data description and returns a configuration dictionary.
+easy-ask is a minimal demonstration package intended to show how chart options can be generated programmatically. The
+library exposes a function called `generate_option` which accepts a chart type and data description and returns a
+configuration dictionary.
 
 ## Quick start
 
@@ -34,6 +36,7 @@ python -m easyask
 Example scripts are also available in the `examples/` directory.
 
 ## How to test
+
 ```bash
 PYTHONPATH=. pytest
 ```
