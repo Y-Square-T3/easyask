@@ -29,3 +29,8 @@ python -m easy_ask
 ```
 
 Example scripts are also available in the `examples/` directory.
+
+## How to test
+```bash
+PYTHONPATH=. pytest
+```
