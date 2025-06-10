@@ -1,4 +1,5 @@
 [![CI](https://github.com/Y-Square-T3/easy-ask/actions/workflows/ci.yml/badge.svg)](https://github.com/Y-Square-T3/easy-ask/actions/workflows/ci.yml)
+[![Publish Docker image](https://github.com/Y-Square-T3/easy-ask/actions/workflows/publish-image.yml/badge.svg)](https://github.com/Y-Square-T3/easy-ask/actions/workflows/publish-image.yml)
 
 # easy-ask
 
