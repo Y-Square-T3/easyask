@@ -1,9 +1,14 @@
+import json
+import logging
 from typing import List, Any, Dict
+
+import dashscope
 
 from easyask.infras.chart.chart import Chart
 from easyask.settings import get_settings
 
 settings = get_settings()
+logger = logging.getLogger(__name__)
 
 initial_prompt = """
 You are a echarts expert.
@@ -154,8 +159,9 @@ class QwenEcharts(Chart):
         super().__init__(dataset, config)
 
         self.api_key = settings.dashscope_api_key
+        self.model = self.config.get("model", "qwen-max")
 
-    def get_prompt(self):
+    def get_prompts(self):
         """
         Example:
         ```python
@@ -170,7 +176,27 @@ class QwenEcharts(Chart):
             any: The prompt for the LLM to generate echrats options.
         """
 
-        return "\n".join([initial_prompt, documentation_prompt, example_prompt, instruction_prompt])
+        return [{"role": "system",
+                 "content": "\n".join([initial_prompt, documentation_prompt, example_prompt, instruction_prompt])},
+                {"role": "user", "content": f"the dataset is {json.dumps(self.dataset)}"}]
 
     def get_options(self):
-        pass
+        prompts = self.get_prompts()
+        num_tokens = 0
+        for message in prompts:
+            num_tokens += len(message["content"]) / 4
+
+        logger.info(f"Using llm {self.model} for {num_tokens} tokens (approx)")
+
+        response = dashscope.Generation.call(
+            api_key=self.api_key,
+            model=self.model,
+            messages=prompts,
+            result_format='message'
+        )
+
+        for choice in response.output.choices:
+            if "text" in choice:
+                return choice.text
+
+        return response.output.choices[0].message.content
