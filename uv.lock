@@ -191,6 +191,7 @@ source = { virtual = "." }
 dependencies = [
     { name = "dashscope" },
     { name = "mcp", extra = ["cli"] },
+    { name = "pydantic-settings" },
     { name = "pytest" },
 ]
 
@@ -198,6 +199,7 @@ dependencies = [
 requires-dist = [
     { name = "dashscope", specifier = ">=1.23.4" },
     { name = "mcp", extras = ["cli"], specifier = ">=1.9.2" },
+    { name = "pydantic-settings", specifier = ">=2.9.1" },
     { name = "pytest", specifier = ">=8.4.0" },
 ]
 

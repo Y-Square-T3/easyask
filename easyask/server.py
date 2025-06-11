@@ -2,9 +2,11 @@ from typing import Any, List, Dict
 
 from mcp.server import FastMCP
 
+from easyask.settings import get_settings
 from easyask.tools import chart
 
-mcp = FastMCP(name="easy-ask-tools")
+settings = get_settings()
+mcp = FastMCP(name="easy-ask-tools", host=settings.host, port=settings.port)
 
 
 @mcp.tool(
