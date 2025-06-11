@@ -1,10 +1,13 @@
+import logging
 from typing import Any, List, Dict
 
 from mcp.server import FastMCP
 
+from easyask.logging.logging_config import LOGGING_CONFIG
 from easyask.settings import get_settings
 from easyask.tools import chart
 
+logging.config.dictConfig(LOGGING_CONFIG)
 settings = get_settings()
 mcp = FastMCP(name="easy-ask-tools", host=settings.host, port=settings.port)
 
