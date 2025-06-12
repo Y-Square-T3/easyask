@@ -1,8 +1,11 @@
 import json
 
+import pytest
+
 from easyask.tools import chart
 
 
+@pytest.mark.skip(reason="This test is skipped since api key reason")
 def test_echarts_options():
     options = chart.get_chart_options([
         ['Matcha Latte', 43.3, 85.8, 93.7],
