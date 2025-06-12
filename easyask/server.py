@@ -17,10 +17,8 @@ mcp = FastMCP(name="easy-ask-tools", host=settings.host, port=settings.port)
     description="based on the dataset, generate chart options using the specified generator class",
 )
 def get_chart_options(dataset: List[List[Any]], dimensions: List[str]) -> Dict:
-    return chart.get_chart_options(dataset, dimensions)
+    return chart.get_chart_options(dataset, dimensions, config={"dashscope_api_key": settings.dashscope_api_key})
 
 
 def serve():
     mcp.run(transport='sse')
-
-

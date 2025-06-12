@@ -5,9 +5,7 @@ from typing import List, Any, Dict
 import dashscope
 
 from easyask.infras.chart.chart import Chart
-from easyask.settings import get_settings
 
-settings = get_settings()
 logger = logging.getLogger(__name__)
 
 initial_prompt = """
@@ -236,10 +234,10 @@ option = {{
 
 
 class QwenEcharts(Chart):
-    def __init__(self, dataset: List[List[Any]], dimensions: List[str], config: Dict = None):
+    def __init__(self, dataset: List[List[Any]], dimensions: List[str], config: Dict):
         super().__init__(dataset, dimensions, config)
 
-        self.api_key = settings.dashscope_api_key
+        self.api_key = config.get("dashscope_api_key", "")
         self.model = self.config.get("model", "qwen-max")
 
     def get_prompts(self):
