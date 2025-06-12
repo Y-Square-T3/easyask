@@ -39,13 +39,6 @@ var option = {
       ['score', 'amount', 'product'],
       [89.3, 58212, 'Matcha Latte'],
       [57.1, 78254, 'Milk Tea'],
-      [74.4, 41032, 'Cheese Cocoa'],
-      [50.1, 12755, 'Cheese Brownie'],
-      [89.7, 20145, 'Matcha Cocoa'],
-      [68.1, 79146, 'Tea'],
-      [19.6, 91852, 'Orange Juice'],
-      [10.6, 101852, 'Lemon Juice'],
-      [32.7, 20112, 'Walnut Brownie']
     ]
   },
   xAxis: {},
@@ -68,7 +61,6 @@ The basic structure of series.encode declaration:
     To the left of the colon: Specific name of axis or label.
     To the right of the colon: Dimension name (string) or number(int, count from 0), to specify one or several dimensions (using array).
 Generally, the following info is not necessary to be defined. Fill in as needed.
-Code example:
 ```javascript
 // Supported in every coordinate and series:
 encode: {
@@ -118,30 +110,104 @@ encode: {
 
 example_prompt = """
 ===Example
-Example:
+Example 1, Bar Chart:
 ```javascript
 option = {
   legend: {},
   tooltip: {},
   dataset: {
-    // Provide a set of data.
+    dimensions: ['product', '2015', '2016', '2017'],
     source: [
-      ['product', '2015', '2016', '2017'],
       ['Matcha Latte', 43.3, 85.8, 93.7],
       ['Milk Tea', 83.1, 73.4, 55.1],
-      ['Cheese Cocoa', 86.4, 65.2, 82.5],
-      ['Walnut Brownie', 72.4, 53.9, 39.1]
     ]
   },
-  // Declare an x-axis (category axis).
-  // The category map the first column in the dataset by default.
   xAxis: { type: 'category' },
-  // Declare a y-axis (value axis).
   yAxis: {},
-  // Declare several 'bar' series,
-  // every series will auto-map to each column by default.
-  series: [{ type: 'bar' }, { type: 'bar' }, { type: 'bar' }]
+  series: [{
+    name: '2015',
+    type: 'bar',
+    barGap: 0,
+    encode: { x: 'product', y: '2015',  tooltip: ['2015']}
+  },{
+    name: '2016',
+    type: 'bar',
+    barGap: 0,
+    encode: { x: 'product', y: '2016',  tooltip: ['2016']}
+  }, {
+    name: '2017',
+    type: 'bar',
+    barGap: 0,
+    encode: { x: 'product', y: '2017',  tooltip: ['2017']}
+  }]
 };
+
+Example 2, Line Chart:
+```javascript
+option = {
+  legend: {},
+  tooltip: {},
+  dataset: {
+    dimensions: ['day', 'v1', 'v2'],
+    source: [
+      [2, 85.8, 93.7],
+      [3, 73.4, 55.1],
+      [5, 73.4, 55.1],
+    ]
+  },
+  xAxis: {},
+  yAxis: {},
+  series: [{
+    name: 'v1',
+    type: 'line',
+    encode: { x: 'day', y: 'v1',  tooltip: ['v1']}
+  },{
+    name: 'v2',
+    type: 'line',
+    encode: { x: 'day', y: 'v2',  tooltip: ['v2']}
+  }]
+};
+
+Example 3, Pie Chart:
+```javascript
+option = {
+  tooltip: {},
+  legend: {
+    orient: 'vertical',
+    left: 'left'
+  },
+  dataset: {
+    dimensions: ['provience', 'v1', 'v2'],
+    source: [
+      ['s1', 85.8, 93.7],
+      ['s2', 73.4, 55.1],
+      ['s3', 73.4, 55.1],
+    ]
+  },
+  series: [{
+    name: 'v1',
+    type: 'pie',
+    radius: '50%',
+    center: ['25%', '25%'],
+    encode: { value: 'v1', itemName: 'provience'},
+    label: {
+        show: true,
+        formatter: '{b}: {@v1} ({d}%)'
+      }
+    },{
+    name: 'v2',
+    type: 'pie',
+    radius: '50%',
+    center: ['75%', '25%'],
+    encode: { value: 'v2', itemName: 'provience'},
+    label: {
+        show: true,
+        formatter: '{b}: {@v2} ({d}%)'
+      }
+    }
+  ]
+};
+
 ```
 """
 
