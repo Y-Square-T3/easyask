@@ -27,6 +27,10 @@ jobs:
         run: |
           uv sync
 
+      - name: Install dependencies
+        run: |
+          cp .env.example .env.local
+
       - name: Run tests
         run: |
           PYTHONPATH=. uv run pytest
