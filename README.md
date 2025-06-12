@@ -2,23 +2,23 @@
 [![Publish Docker Hub](https://github.com/Y-Square-T3/easyask/actions/workflows/publish-image.yml/badge.svg)](https://hub.docker.com/repository/docker/sheltonsuen/easyask/general)
 [![Publish PyPI](https://github.com/Y-Square-T3/easyask/actions/workflows/publish-pypi.yml/badge.svg)](https://pypi.org/project/easyask/)
 
-# easy-ask
+# easyask
 
-easy-ask is a minimal demonstration package intended to show how chart options can be generated programmatically. The
-library exposes a function called `generate_option` which accepts a chart type and data description and returns a
-configuration dictionary.
+easyask is a minimal demonstration package intended to show how chart options can be generated programmatically.
 
 ## Quick start
 
 ```python
-from easyask import generate_option
+from easyask.tools import chart
 
 # Build an option for a bar chart
-option = generate_option(
-    chart_type="bar",
-    data=[{"value": 10}, {"value": 20}, {"value": 30}],
-    title="Demo Bar Chart",
-)
+option = chart.get_chart_options([
+        ['Matcha Latte', 43.3, 85.8, 93.7],
+        ['Milk Tea', 83.1, 73.4, 55.1],
+        ['Cheese Cocoa', 86.4, 65.2, 82.5],
+        ['Walnut Brownie', 72.4, 53.9, 39.1]
+    ], ['product', '2015', '2016', '2017'])
+
 print(option)
 ```
 
@@ -39,5 +39,5 @@ Example scripts are also available in the `examples/` directory.
 ## How to test
 
 ```bash
-PYTHONPATH=. pytest
+PYTHONPATH=. uv run pytest
 ```
