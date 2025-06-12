@@ -209,6 +209,7 @@ option = {
 };
 
 ```
+
 """
 
 instruction_prompt = """
@@ -216,13 +217,27 @@ instruction_prompt = """
 1. Response should ONLY be based on the given context and follow the response guidelines and format instructions.
 2. Please think step by step and analyze the documentation and example carefully to ensure a full understanding of the context.
 3. The response should be a valid echarts options object.
-4. The response should start with `options = {` and end with `}; and with prefix RESULT: `.
+4. The response should start with prefix RESULT: and the reset should only contain valid JSON configs, no need to include options = `.
+5. You should choose the proper chart type based on the dataset and dimensions provided. and you can also combine multiple chart types in one echarts options.
+"""
+
+user_prompt = """
+===User Input
+Given the dataset config as below:
+```javascript
+option = {{
+  dataset: {{
+    dimensions: {dimensions},
+    source: {dataset}
+  }},
+}};
+```
 """
 
 
 class QwenEcharts(Chart):
-    def __init__(self, dataset: List[List[Any]], config: Dict = None):
-        super().__init__(dataset, config)
+    def __init__(self, dataset: List[List[Any]], dimensions: List[str], config: Dict = None):
+        super().__init__(dataset, dimensions, config)
 
         self.api_key = settings.dashscope_api_key
         self.model = self.config.get("model", "qwen-max")
@@ -244,7 +259,8 @@ class QwenEcharts(Chart):
 
         return [{"role": "system",
                  "content": "\n".join([initial_prompt, documentation_prompt, example_prompt, instruction_prompt])},
-                {"role": "user", "content": f"the dataset is {json.dumps(self.dataset)}"}]
+                {"role": "user", "content": user_prompt.format(dimensions=json.dumps(self.dimensions),
+                                                               dataset=json.dumps(self.dataset))}]
 
     def get_options(self):
         prompts = self.get_prompts()
@@ -265,4 +281,15 @@ class QwenEcharts(Chart):
             if "text" in choice:
                 return choice.text
 
-        return response.output.choices[0].message.content
+        result = response.output.choices[0].message.content
+
+        simi_index = result.index(':')
+        if simi_index == -1:
+            raise ValueError(f"Invalid response format: {result}")
+
+        result = result[simi_index + 1:].strip()
+        try:
+            json.loads(result)
+            return result
+        except json.JSONDecodeError as e:
+            raise ValueError(f"Invalid JSON format in response: {result}") from e
