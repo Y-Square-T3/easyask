@@ -16,8 +16,5 @@ dependencies = [
     "colorlog>=6.9.0",
 ]
 
-[tool.setuptools]
-package-dir = { "" = "easyask" }
-
 [tool.setuptools.packages.find]
-where = ["easyask"]
+where = ["."]
