@@ -80,8 +80,6 @@ class PieEcharts(Chart):
                 "dimensions": self.dimensions,
                 "source": self.dataset
             },
-            "xAxis": {},
-            "yAxis": {},
             "series": [{
                 "name": dimension,
                 "type": self.type,
