@@ -53,7 +53,7 @@ class LineEcharts(Chart):
                 "dimensions": self.dimensions,
                 "source": self.dataset
             },
-            "xAxis": {},
+            "xAxis": {"type": "category"},
             "yAxis": {},
             "series": [{
                 "name": dimension,

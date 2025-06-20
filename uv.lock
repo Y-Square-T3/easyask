@@ -198,8 +198,8 @@ wheels = [
 
 [[package]]
 name = "easyask"
-version = "0.3.0"
-source = { virtual = "." }
+version = "0.9.0"
+source = { editable = "." }
 dependencies = [
     { name = "colorlog" },
     { name = "dashscope" },
